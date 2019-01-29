@@ -29,7 +29,7 @@ public class Receiver extends BroadcastReceiver {
 
 
 
-    public void check(){
+    public synchronized void check(){
         LocalTime current;
         if (counter.size() > 0){
             current = counter.get(0);

@@ -5,8 +5,11 @@ import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.os.Build;
+import android.view.KeyEvent;
+import android.view.MotionEvent;
+import android.view.View;
 
-public class App extends Application {
+public class App extends Application  {
     public final static String CHANNEL_ID = "someServiceChannel";
 
     @Override
