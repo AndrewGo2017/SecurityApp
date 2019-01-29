@@ -4,8 +4,10 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.res.Resources;
 import android.graphics.BitmapFactory;
 import android.os.Build;
@@ -60,11 +62,25 @@ public class SecurityService extends Service {
 //            }
 //        }).start();
 
+
+
+
+        IntentFilter filter = new IntentFilter(Intent.ACTION_SCREEN_ON);
+        filter.addAction(Intent.ACTION_SCREEN_OFF);
+        BroadcastReceiver mReceiver = new Receiver();
+        registerReceiver(mReceiver, filter);
+
         connectToWebSocket();
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        int counter = intent.getIntExtra("screen_state", 0);
+        if (counter != 0){
+            openActivity("");
+        }
+
+
         return START_NOT_STICKY;
     }
 
@@ -164,9 +180,9 @@ public class SecurityService extends Service {
                 NotificationManager notificationManager =
                         (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
-                notificationManager.notify(++counter, notification);
+//                notificationManager.notify(++counter, notification);
 
-//                startForeground(++counter, notification);
+                startForeground(++counter, notification);
             }
         });
 
